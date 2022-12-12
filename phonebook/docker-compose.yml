@@ -1,0 +1,31 @@
+services:
+  app:
+    image: phonebook-frontend
+    build:
+      context: ./frontend
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/:/usr/src/app
+      - app_node_modules:/usr/src/app/node_modules
+    container_name: phonebook-frontend
+    depends_on:
+      - server
+  server:
+    image: phonebook-backend
+    build:
+      context: ./backend
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend/:/usr/src/app
+      - server_node_modules:/usr/src/app/node_modules
+    ports:
+      - 3001:3001
+    container_name: phonebook-backend
+  debug-helper:
+    image: busybox
+
+volumes:
+  app_node_modules:
+  server_node_modules:

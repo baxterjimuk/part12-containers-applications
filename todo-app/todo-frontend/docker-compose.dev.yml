@@ -1,0 +1,14 @@
+services:
+  app:
+    image: todo-frontend-dev
+    build:
+      context: . # The context will pick this directory as the "build context"
+      dockerfile: dev.Dockerfile # This will simply tell which dockerfile to read
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    container_name: todo-frontend-dev # This will name the container todo-frontend-dev
+    environment:
+      - WATCHPACK_POLLING=true
